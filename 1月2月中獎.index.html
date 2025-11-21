@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>berji新春兌獎</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #5e1224; /* 酒紅色背景 */
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* 更明顯的陰影 */
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 {
+            color: #5e1224; /* 藍色標題 */
+            font-size: 26px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e8e8e8;
+            padding-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 2px solid #5e1224; /* 藍色邊框 */
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 17px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #096dd9;
+            box-shadow: 0 0 5px rgba(24, 144, 255, 0.5);
+            outline: none;
+        }
+        button {
+            background-color: #5e1224;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        button:hover {
+            background-color: #096dd9;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        #result-message {
+            margin-top: 30px;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            min-height: 50px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .success {
+            background-color: #f6ffed; /* 成功提示的淡綠色背景 */
+            color: #52c41a; /* 綠色文字 */
+            border: 1px solid #b7eb8f;
+        }
+        .error {
+            background-color: #fff1f0; /* 錯誤提示的淡紅色背景 */
+            color: #f5222d; /* 紅色文字 */
+            border: 1px solid #ffa39e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>berji新春兌獎</h1>
+        <p>請輸入您的專屬兌換碼：</p>
+        <input type="text" id="couponCode" placeholder="在此輸入兌換碼..." required>
+        <button onclick="checkCode()">確認兌換</button>
+        <div id="result-message"></div>
+    </div>
+
+    <script>
+        // ==========================================================
+        // *** 核心步驟：在此處設定您的「兌換碼」與「獎品」對應關係 ***
+        // 格式： "兌換碼(英文大寫)" : "獎品內容 (文字、代碼或連結)",
+        // 請確保兌換碼是唯一的！
+        // ==========================================================
+        const prizeMap = {
+            "VIP888": "免費兌換500元以內的商品乙份【請出示畫面至berji櫃上兌換】",
+            "PRE1688": "La petty水滴口袋傘【請出示畫面至berji櫃上兌換】",
+            "FRE6869": "極地雪藻保水精華液50ml【請出示畫面至berji櫃上兌換】",
+            "GIF2688": "試用包好禮【請出示畫面至berji櫃上兌換】",
+            "JA7777": "潔顏蜜【請出示畫面至berji櫃上兌換】",
+            "AF5689": "水漾化妝水【請出示畫面至berji櫃上兌換】",
+            "AF1738": "berji環保提袋【請出示畫面至berji櫃上兌換】"
+   
+        };
+        
+        const resultMessageDiv = document.getElementById('result-message');
+
+        function checkCode() {
+            // 讀取輸入，轉為大寫並清除兩側空白，確保比對準確性
+            const inputCode = document.getElementById('couponCode').value.toUpperCase().trim(); 
+
+            // 清除上次的訊息
+            resultMessageDiv.textContent = "";
+            resultMessageDiv.className = "";
+
+            // 檢查兌換碼是否在我們的列表中
+            if (prizeMap.hasOwnProperty(inputCode)) {
+                const prize = prizeMap[inputCode];
+                
+                // 顯示成功訊息
+                resultMessageDiv.innerHTML = `✅ 兌換成功！<br><strong>您的獎品是：${prize}</strong>`;
+                resultMessageDiv.classList.add('success');
+                
+            } else {
+                // 顯示錯誤訊息
+                resultMessageDiv.innerHTML = "❌ 兌換失敗。<br>請檢查您輸入的兌換碼是否正確。";
+                resultMessageDiv.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>
